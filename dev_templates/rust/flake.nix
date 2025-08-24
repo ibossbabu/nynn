@@ -19,28 +19,32 @@
       "aarch64-darwin"
     ];
   in
-    inputs.flake-utils.lib.eachSystem supportedSystem (
+    flake-utils.lib.eachSystem supportedSystem (
       system: let
-        pkgs = import inputs.nixpkgs {inherit system;};
-        # Read the file relative to the flake's root
+        pkgs = import nixpkgs {inherit system;};
+        stdenv = pkgs.stdenv;
+
         overrides = builtins.fromTOML (builtins.readFile (self + "/rust-toolchain.toml"));
-        libPath = with pkgs;
-          lib.makeLibraryPath [
-            # load external libraries that you need in your rust project here
-          ];
+        libPath = pkgs.lib.makeLibraryPath [];
+
+        isLinux = stdenv.isLinux;
+        isDarwin = stdenv.isDarwin;
       in {
         devShells.default = pkgs.mkShell rec {
           nativeBuildInputs = [pkgs.pkg-config];
 
-          buildInputs = with pkgs; [
-            clang
-            llvmPackages.bintools
-            rustup
-          ];
+          buildInputs = with pkgs;
+            [
+              clang
+              llvmPackages.bintools
+              rustup
+            ]
+            ++ lib.optionals stdenv.isDarwin [
+              libiconv-darwin
+            ];
 
           RUSTC_VERSION = overrides.toolchain.channel;
 
-          # https://github.com/rust-lang/rust-bindgen#environment-variables
           LIBCLANG_PATH = pkgs.lib.makeLibraryPath [pkgs.llvmPackages_latest.libclang.lib];
 
           shellHook = ''
@@ -48,25 +52,31 @@
             export PATH=$PATH:''${RUSTUP_HOME:-~/.rustup}/toolchains/$RUSTC_VERSION-x86_64-unknown-linux-gnu/bin/
           '';
 
-          # Add precompiled library to rustc search path
-          RUSTFLAGS = builtins.map (a: ''-L ${a}/lib'') [
-            # add libraries here (e.g. pkgs.libvmi)
+          RUSTFLAGS = builtins.map (a: "-L ${a}/lib") [
+            # add additional precompiled libraries here
           ];
 
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (buildInputs ++ nativeBuildInputs);
 
-          # Add glibc, clang, glib, and other headers to bindgen search path
+          # Conditional bindgen flags
           BINDGEN_EXTRA_CLANG_ARGS =
-            # Includes normal include path
-            (builtins.map (a: ''-I"${a}/include"'') [
-              # add dev libraries here (e.g. pkgs.libvmi.dev)
-              pkgs.glibc.dev
+            # General include paths (platform agnostic)
+            (builtins.map (a: "-I${a}/include") [
+              # Add dev libraries here (platform-independent ones)
             ])
-            # Includes with special directory paths
+            ++
+            # Linux-specific include paths
+            (
+              if isLinux
+              then [
+                "-I${pkgs.glibc.dev}/include"
+                "-I${pkgs.glib.dev}/include/glib-2.0"
+                "-I${pkgs.glib.out}/lib/glib-2.0/include"
+              ]
+              else []
+            )
             ++ [
-              ''-I"${pkgs.llvmPackages_latest.libclang.lib}/lib/clang/${pkgs.llvmPackages_latest.libclang.version}/include"''
-              ''-I"${pkgs.glib.dev}/include/glib-2.0"''
-              ''-I${pkgs.glib.out}/lib/glib-2.0/include/''
+              "-I${pkgs.llvmPackages_latest.libclang.lib}/lib/clang/${pkgs.llvmPackages_latest.libclang.version}/include"
             ];
         };
       }
