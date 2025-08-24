@@ -1,0 +1,13 @@
+snippet desc
+  description = "${1}";
+snippet inp
+  inputs = {
+    ${1}
+  };
+snippet outp
+  outputs = {
+    self,
+    ${1},
+  }: let
+snippet nixpkgs
+  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
