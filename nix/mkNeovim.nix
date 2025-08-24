@@ -77,7 +77,6 @@ with lib;
               if vim.fn.filereadable(init_file) == 1 then
                 dofile(init_file)
               end
-       return
        end
               vim.opt.rtp:prepend(immutable_config)
               vim.opt.rtp:append(immutable_config .. "/after")
