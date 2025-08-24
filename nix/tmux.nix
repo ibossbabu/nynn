@@ -18,7 +18,7 @@
     name = "tx";
     inherit runtimeInputs;
     text = ''
-      export TMUX_PLUGIN_SENSIBLE="${pkgs.tmuxPlugins.sensible.rtp}"
+      #export TMUX_PLUGIN_SENSIBLE="${pkgs.tmuxPlugins.sensible.rtp}"
       export TMUX_PLUGIN_CATPPUCCIN="${pkgs.tmuxPlugins.catppuccin.rtp}"
       export TMUX_PLUGIN_VIM_NAVIGATOR="${pkgs.tmuxPlugins.vim-tmux-navigator.rtp}"
       export TMUX_PLUGIN_CONTINUUM="${pkgs.tmuxPlugins.continuum.rtp}"
