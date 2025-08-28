@@ -1,8 +1,8 @@
---local parser_dir = vim.fn.expand("~/.local/share/nvim/treesitter/parser/")
---vim.opt.runtimepath:prepend(parser_dir)
+--vim.cmd.packadd 'nvim-treesitter'
+--vim.opt.runtimepath:prepend(vim.fn.expand("~/.local/share/nvim/treesitter"))
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
-    --parser_install_dir = parser_dir,
+    --parser_install_dir = vim.fn.expand("~/.local/share/nvim/treesitter/parser/"),
     modules = {},
     ignore_install = {},
     ensure_installed = {},
