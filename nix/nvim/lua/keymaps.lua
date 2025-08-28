@@ -14,8 +14,8 @@ vim.keymap.set("n", "x", '"_x', opts)
 vim.keymap.set("n", "<C-d>", "<C-d>zz", opts)
 vim.keymap.set("n", "<C-u>", "<C-u>zz", opts)
 -- Quickfix
-vim.keymap.set("n", "<M-j>", "<cmd>:cnext<CR>", opts)
-vim.keymap.set("n", "<M-k>", "<cmd>:cprev<CR>", opts)
+vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>", opts)
+vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>", opts)
 -- Find and center
 vim.keymap.set("n", "n", "nzzzv", opts)
 vim.keymap.set("n", "N", "Nzzzv", opts)
@@ -27,7 +27,10 @@ vim.keymap.set("n", "<C-i>", "<C-i>zz", opts)
 vim.keymap.set("n", "<C-o>", "<C-o>zz", opts)
 -- Redo and Undo
 vim.keymap.set("n", "<C-r>", "<C-r>zz", opts)
-vim.keymap.set("n", "<u>", "<u>zz", opts)
+vim.keymap.set("n", "u", "uzz", opts)
+-- Go to
+vim.keymap.set("n", "g;", "g;zz", opts)
+vim.keymap.set("n", "g,", "g,zz", opts)
 
 --TERM
 vim.keymap.set('t', '<C-q>', '<C-\\><C-n>', opts)
