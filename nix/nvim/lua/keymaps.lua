@@ -25,9 +25,6 @@ vim.keymap.set('n', '<C-w>v', ':split<CR>', opts)
 -- Jump
 vim.keymap.set("n", "<C-i>", "<C-i>zz", opts)
 vim.keymap.set("n", "<C-o>", "<C-o>zz", opts)
--- Redo and Undo
-vim.keymap.set("n", "<C-r>", "<C-r>zz", opts)
-vim.keymap.set("n", "u", "uzz", opts)
 -- Go to
 vim.keymap.set("n", "g;", "g;zz", opts)
 vim.keymap.set("n", "g,", "g,zz", opts)
