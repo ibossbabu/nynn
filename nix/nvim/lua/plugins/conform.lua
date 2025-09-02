@@ -10,14 +10,8 @@ return {
     conform.setup({
       formatters_by_ft = {
         nix = { "alejandra" },
-        c = { "clangformat" },
+        haskell = { "ormolu" },
         rust = { "rustfmt", lsp_format = "fallback" },
-      },
-      formatters = {
-        clangformat = {
-          command = "clangformat",
-          prepend_args = { "--enable-outside-detected-project" },
-        },
       },
       format_on_save = {
         lsp_fallback = true,
