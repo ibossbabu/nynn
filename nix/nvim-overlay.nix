@@ -25,7 +25,7 @@
     };
     treesitter =
       vimPlugins.nvim-treesitter.withPlugins
-      (p: [p.bash p.nix p.go p.rust]);
+      (p: [p.bash p.nix p.haskell p.rust]);
     #nvim-lspconfig = buildVimPlugin inputs.nvim-lspconfig "nvim-lspconfig";
   in
     with vimPlugins; [
