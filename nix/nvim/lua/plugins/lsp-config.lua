@@ -43,6 +43,7 @@ return {
     after = function()
       local servers = {
         nixd = true,
+        hls = true,
         rust_analyzer = {
           settings = {
             ['rust-analyzer'] = {
