@@ -42,6 +42,7 @@ return {
     end,
     after = function()
       local servers = {
+        ruby_lsp = true,
         nixd = true,
         hls = true,
         rust_analyzer = {
