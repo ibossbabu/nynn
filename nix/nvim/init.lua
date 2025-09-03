@@ -17,7 +17,7 @@ require("lze").load {
       require("nvim-autopairs").setup()
     end,
   },
-  { import = "plugins/conform" },
+  { import = "plugins/fmtandlint" },
   { import = "plugins/completion" },
   { import = "plugins/oil" },
   { import = "plugins/lsp-config" },
