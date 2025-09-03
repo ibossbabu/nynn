@@ -1,6 +1,5 @@
-vim.cmd.packadd 'guard-nvim'
 return {
-  "guardnvimsrc",
+  "guard.nvim",
   before = function()
     vim.g.guard_config = {
       fmt_on_save = true,
