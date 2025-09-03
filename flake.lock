@@ -18,22 +18,6 @@
         "type": "github"
       }
     },
-    "guardnvimsrc": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1756037253,
-        "narHash": "sha256-jf/jI5MqxyoZOljLiFmPP5PJVdhw9bReCUCyhxs8nHM=",
-        "owner": "nvimdev",
-        "repo": "guard.nvim",
-        "rev": "5127d963f5f5eff6306078e662124df9d88766fa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvimdev",
-        "repo": "guard.nvim",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1756819007,
@@ -53,7 +37,6 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "guardnvimsrc": "guardnvimsrc",
         "nixpkgs": "nixpkgs"
       }
     },
