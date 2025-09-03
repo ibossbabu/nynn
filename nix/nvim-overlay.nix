@@ -25,8 +25,7 @@
     };
     treesitter =
       vimPlugins.nvim-treesitter.withPlugins
-      (p: [p.bash p.nix p.haskell p.rust]);
-    #nvim-lspconfig = buildVimPlugin inputs.nvim-lspconfig "nvim-lspconfig";
+      (p: [p.bash p.nix p.haskell p.rust p.ruby]);
   in
     with vimPlugins; [
       # It's technically possible to provide lua configuration for
@@ -50,8 +49,9 @@
       (opt catppuccin-nvim)
       #(opt mellifluous-nvim)
       (opt vim-tmux-navigator)
+      (opt guard-nvim)
 
-      (opt conform-nvim)
+      #(opt conform-nvim)
       (opt nvim-lspconfig)
       treesitter
       #nvim-treesitter-textobjects
