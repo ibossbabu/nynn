@@ -11,7 +11,7 @@
     self,
     flake-utils,
     nixpkgs,
-    #    neovim-nightly-overlay,
+    #neovim-nightly-overlay,
     ...
   }: let
     supportedSystems = [
