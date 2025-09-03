@@ -1,4 +1,4 @@
-vim.cmd.packadd 'guardnvimsrc'
+vim.cmd.packadd 'guard-nvim'
 return {
   "guardnvimsrc",
   before = function()
