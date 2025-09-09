@@ -25,7 +25,7 @@
     };
     treesitter =
       vimPlugins.nvim-treesitter.withPlugins
-      (p: [p.bash p.nix p.haskell p.rust p.ruby]);
+      (p: [p.bash p.nix p.ruby]);
   in
     with vimPlugins; [
       # It's technically possible to provide lua configuration for

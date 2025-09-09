@@ -44,24 +44,6 @@ return {
       local servers = {
         ruby_lsp = true,
         nixd = true,
-        hls = true,
-        rust_analyzer = {
-          settings = {
-            ['rust-analyzer'] = {
-              checkOnSave = true,
-              check = {
-                command = "clippy",
-                extraArgs = { "--no-deps" },
-              },
-              procMacro = {
-                enable = true,
-              },
-              cargo = {
-                allFeatures = true,
-              },
-            },
-          },
-        },
         lua_ls = {
           settings = {
             Lua = {
