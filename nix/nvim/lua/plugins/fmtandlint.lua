@@ -20,6 +20,26 @@ return {
       stdin = true,
       ignore_error = true,
     })
+    -- C ==>
+    ft('c'):fmt({
+      cmd = "clang-format",
+      args = { "--style={IndentWidth: 4}" },
+      stdin = true,
+    }):lint({
+      cmd = "clang-tidy",
+      args = { "--quiet" },
+      fname = true,
+      parse = lint.from_regex({
+        source = "clang-tidy",
+        regex = ":(%d+):(%d+):%s+(%w+):%s+(.-)%s+%[(.-)%]",
+        groups = { "lnum", "col", "severity", "message", "code" },
+        severities = {
+          information = lint.severities.info,
+          hint = lint.severities.info,
+          note = lint.severities.style,
+        },
+      }),
+    })
     -- Ruby ==>
     ft("ruby"):fmt({
       cmd = 'bundle',

@@ -44,6 +44,7 @@ return {
       local servers = {
         ruby_lsp = true,
         nixd = true,
+        clangd = { cmd = { 'clangd', '--background-index' } },
         lua_ls = {
           settings = {
             Lua = {
