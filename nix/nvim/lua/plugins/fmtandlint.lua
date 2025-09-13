@@ -11,15 +11,27 @@ return {
     }
   end,
   after = function()
+    -- Override vim.fn.executable to bypass Guard's checks
+    local original_executable = vim.fn.executable
+
+    vim.fn.executable = function(cmd)
+      if cmd == 'clang-format' or cmd == 'clang-tidy' or cmd == 'bundle' then
+        return 1 -- Pretend they exist
+      end
+      return original_executable(cmd)
+    end
+
+    -- Setup Guard normally
     local ft = require("guard.filetype")
     local lint = require("guard.lint")
+
     -- Nix ==>
     ft("nix"):fmt({
       cmd = 'alejandra',
       args = { '--quiet' },
       stdin = true,
-      ignore_error = true,
     })
+
     -- C ==>
     ft('c'):fmt({
       cmd = "clang-format",
@@ -40,6 +52,7 @@ return {
         },
       }),
     })
+
     -- Ruby ==>
     ft("ruby"):fmt({
       cmd = 'bundle',
@@ -67,7 +80,11 @@ return {
         },
       }),
     })
+
+    -- Restore original function
+    vim.fn.executable = original_executable
   end,
+
   vim.keymap.set({ "n", "v" }, "<leader>gf", "<cmd>Guard fmt<cr>",
     { noremap = true, silent = true, desc = "Guard format" })
 }
